@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var admin = require("firebase-admin");
 
 router.post('/', function(req, res, next) {
     const body = req.body;
@@ -35,7 +36,7 @@ router.post('/', function(req, res, next) {
 
     }
     else {
-        res.send(`You sent:  ${body.datas} to Express`);
+        res.send(`You sent:  ${body.event} to Express`);
     }
 
 });
