@@ -3,9 +3,21 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
+var admin = require("firebase-admin");
+
+
+var serviceAccount = require("./wanap-firebase");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://wanap-303d2.firebaseio.com"
+});
+
 
 var indexRouter = require('./routes/index');
 var statusRouter = require('./routes/status');
+var eventRouter = require('./routes/event');
 
 var app = express();
 
@@ -18,9 +30,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
 app.use('/status', statusRouter);
+app.use('/event', eventRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,12 +1,39 @@
 var express = require('express');
 var router = express.Router();
+var admin = require("firebase-admin");
 
-/* GET users listing. */
 router.post('/', function(req, res, next) {
-    var body = req.body;
-    console.log("WANAP_SERVER "+body.toString());
-    res.send('respond with a resource');
-    // res.sendStatus(200);
+    const body = req.body;
+    if(body.deviceToken)
+    {
+        let message = {
+            data: {
+                score: body.datas,
+            },
+            token: body.deviceToken
+        };
+
+
+        admin.messaging().send(message )
+            .then(function(response) {
+                // See the MessagingDevicesResponse reference documentation for
+                // the contents of response.
+                console.log('Successfully sent message:', response);
+                // res.send(`You sent: ${body.deviceToken} and ${body.datas} to Express`+response);
+                res.sendStatus(200)
+
+            })
+            .catch(function(error) {
+                console.log('Error sending message:', error);
+                // res.send(`You sent: ${body.deviceToken} and ${body.datas} to Express`+error);
+                res.sendStatus(404)
+            });
+
+
+    }
+    else {
+        res.send(`You sent:  ${body.datas} to Express`);
+    }
 
 });
 
