@@ -8,7 +8,8 @@ router.post('/', function(req, res, next) {
     {
         let message = {
             data: {
-                score: body.datas,
+                data_type:"status",
+                data_content: body.datas,
             },
             token: body.deviceToken
         };
