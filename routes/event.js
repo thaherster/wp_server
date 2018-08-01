@@ -8,7 +8,7 @@ router.post('/', function(req, res, next) {
     {
         let message = {
             data: {
-                data_type:"status",
+                data_type:'event',
                 data_content: body.event,
             },
             token: body.deviceToken
