@@ -20,13 +20,16 @@ router.post('/', function(req, res, next) {
                 // the contents of response.
                 console.log('Successfully sent message:', response);
                 // res.send(`You sent: ${body.deviceToken} and ${body.datas} to Express`+response);
-                res.sendStatus(200)
+                // res.sendStatus(200)
+                res.send("SUCCESS");
 
             })
             .catch(function(error) {
                 console.log('Error sending message:', error);
                 // res.send(`You sent: ${body.deviceToken} and ${body.datas} to Express`+error);
-                res.sendStatus(404)
+                // res.sendStatus(404)
+                res.send("ERROR");
+
             });
 
 
